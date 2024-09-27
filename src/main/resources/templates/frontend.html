@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Frontend Application</title>
+</head>
+<body>
+    <h1>Fetch a File</h1>
+    <form th:action="@{/fetchFile}" method="POST">
+        <label for="url">Enter URL:</label>
+        <input type="text" id="url" name="url" required>
+        <button type="submit">Fetch</button>
+    </form>
+
+    <!-- Display file content if available -->
+    <div th:if="${fileContent}">
+        <h2>File Content:</h2>
+        <pre th:text="${fileContent}"></pre>
+    </div>
+
+    <!-- Display error if fetching failed -->
+    <div th:if="${error}">
+        <p style="color: red;" th:text="${error}"></p>
+    </div>
+</body>
+</html>

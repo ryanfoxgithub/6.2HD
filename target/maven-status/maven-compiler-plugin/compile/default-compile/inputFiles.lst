@@ -1,0 +1,8 @@
+/home/kali/Documents/eclipse-workspace/vulnerable/src/main/java/com/example/config/SecurityConfig.java
+/home/kali/Documents/eclipse-workspace/vulnerable/src/main/java/com/example/controller/CSRFGen.java
+/home/kali/Documents/eclipse-workspace/vulnerable/src/main/java/com/example/controller/HomeController.java
+/home/kali/Documents/eclipse-workspace/vulnerable/src/main/java/com/example/exception/GlobalExceptionHandler.java
+/home/kali/Documents/eclipse-workspace/vulnerable/src/main/java/com/example/model/Customer.java
+/home/kali/Documents/eclipse-workspace/vulnerable/src/main/java/com/example/model/Purchase.java
+/home/kali/Documents/eclipse-workspace/vulnerable/src/main/java/com/example/model/User.java
+/home/kali/Documents/eclipse-workspace/vulnerable/src/main/java/com/vulnerable.java

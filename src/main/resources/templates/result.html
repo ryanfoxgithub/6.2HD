@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Content</title>
+</head>
+<body>
+    <h1>File Content</h1>
+
+    <!-- If the file content is available, display it -->
+    <div th:if="${fileContent}">
+        <h2>Content of the file:</h2>
+        <pre th:utext="${fileContent}"></pre>
+    </div>
+
+    <!-- If there's an error, display the error message -->
+    <div th:if="${error}">
+        <p style="color: red;" th:text="${error}"></p>
+    </div>
+
+    <!-- Link back to the form to fetch another file -->
+    <form th:action="@{/frontend}" method="GET">
+        <button type="submit">Fetch Another File</button>
+    </form>
+
+    <!-- Return Home -->
+    <form th:action="@{/}" method="GET">
+        <button type="submit">Return to Home</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Character encoding for the document -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Vulnerability Page</title> <!-- Title of the page -->
+</head>
+<body>
+    <h1>Login</h1> <!-- Main heading for the login page -->
+    <hr style="height: 1px; background-color: red; border: none;">
+    <form th:action="@{/sql}" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br><br>
+        
+        <p th:text="${message}"></p>
+        <button type="submit">Login</button>
+        
+    </form>
+    
+    <!-- Return Home -->
+    <br>
+    <form th:action="@{/}" method="GET">
+        <button type="submit">Return to Home</button>
+    </form>
+
+</body>
+</html>

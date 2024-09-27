@@ -1,0 +1,44 @@
+2024-09-27 05:57:11,401 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-09-27 05:57:11,463 [main] INFO  com.vulnerable - Starting vulnerable v0.0.1-SNAPSHOT using Java 17.0.6 with PID 232517 (/home/kali/Documents/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/vulnerable/WEB-INF/classes started by root in /opt/eclipse/eclipse)
+2024-09-27 05:57:11,474 [main] DEBUG com.vulnerable - Running with Spring Boot v3.3.4, Spring v6.1.13
+2024-09-27 05:57:11,475 [main] INFO  com.vulnerable - No active profile set, falling back to 1 default profile: "default"
+2024-09-27 05:57:12,689 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-09-27 05:57:12,690 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2024-09-27 05:57:12,785 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 71 ms. Found 0 JDBC repository interfaces.
+2024-09-27 05:57:12,795 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-09-27 05:57:12,796 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-27 05:57:12,818 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 0 JPA repository interfaces.
+2024-09-27 05:57:13,198 [main] INFO  o.a.c.c.C.[.[.[/VulnerableWebApp] - Initializing Spring embedded WebApplicationContext
+2024-09-27 05:57:13,199 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1664 ms
+2024-09-27 05:57:13,379 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-09-27 05:57:13,698 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2024-09-27 05:57:13,701 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-09-27 05:57:13,728 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2024-09-27 05:57:13,969 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-27 05:57:14,099 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-09-27 05:57:14,164 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-09-27 05:57:14,537 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-27 05:57:14,621 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-09-27 05:57:15,637 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-27 05:57:15,692 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-27 05:57:15,799 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-27 05:57:16,044 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2024-09-27 05:57:16,357 [main] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CsrfFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+2024-09-27 05:57:16,835 [main] INFO  com.vulnerable - Started vulnerable in 5.963 seconds (process running for 10.756)
+2024-09-27 05:57:16,843 [main] INFO  o.a.c.c.C.[.[.[/VulnerableWebApp] - Initializing Spring DispatcherServlet 'dispatcher'
+2024-09-27 05:57:16,843 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcher'
+2024-09-27 05:57:17,815 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 971 ms
+2024-09-27 05:57:17,823 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-09-27 05:57:17,845 [main] INFO  o.apache.catalina.startup.Catalina - Server startup in [10703] milliseconds
+2024-09-27 05:57:19,084 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+2024-09-27 05:57:19,123 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+2024-09-27 05:57:19,608 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2024-09-27 05:57:20,942 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /xss
+2024-09-27 05:57:20,945 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2024-09-27 05:57:20,956 [http-nio-8080-exec-3] DEBUG o.s.s.w.s.HttpSessionRequestCache - Saved request http://localhost:8080/VulnerableWebApp/xss?continue to session
+2024-09-27 05:57:20,963 [http-nio-8080-exec-3] DEBUG o.s.s.web.DefaultRedirectStrategy - Redirecting to http://localhost:8080/VulnerableWebApp/login
+2024-09-27 05:57:21,168 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /login
+2024-09-27 05:57:21,168 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /login
+2024-09-27 05:57:21,244 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2024-09-27 05:57:28,057 [Thread-1] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2024-09-27 05:57:28,065 [Thread-1] INFO  o.a.catalina.core.StandardService - Stopping service [Catalina]

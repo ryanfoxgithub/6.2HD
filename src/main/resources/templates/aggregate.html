@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Character encoding for the document -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aggregate Result</title> <!-- Page title -->
+</head>
+<body>
+    <h1>Aggregate Query</h1> <!-- Main heading -->
+    <hr style="height: 1px; background-color: red; border: none;">
+
+    <form th:action="@{/aggregate}" method="POST"> <!-- Form for submitting data -->
+		<label for="first_name">First Name:</label> <!-- Label for first name -->
+		<input type="text" id="first_name" name="first_name" placeholder="Enter first name" 
+		pattern="[A-Za-z-]*" title="Only letters, spaces, and hyphens are allowed."><br><br>
+        
+        <label for="last_name">Last Name:</label> <!-- Label for last name -->
+        <input type="text" id="last_name" name="last_name" placeholder="Enter last name" 
+		pattern="[A-Za-z-]*" title="Only letters, spaces, and hyphens are allowed."><br><br>
+        
+        <label for="email">Email:</label> <!-- Label for email -->
+        <input type="email" id="email" name="email" placeholder="Enter email" 
+        title="Please enter a valid email address."><br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+
+	<!-- Section for displaying results -->
+    <div>
+        <h2>Result</h2>
+        <p th:if="${message}"><span th:text="${message}"></span></p>
+        
+        <p th:if="${purchaseHistory != null and purchaseHistory.size() > 0}">This person has made the following purchases:</p>
+        <ul th:if="${purchaseHistory != null and purchaseHistory.size() > 0}">
+            <li th:each="purchase : ${purchaseHistory}">
+                <span th:text="${purchase}"></span>
+            </li>
+        </ul>
+    </div>
+
+	<!-- Form to return to home -->
+    <br>
+    <form th:action="@{/}" method="GET">
+        <button type="submit">Return to Home</button>
+    </form>
+</body>
+</html>

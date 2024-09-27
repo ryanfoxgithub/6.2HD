@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demonstration of XSS Vulnerability</title>
+</head>
+<body>
+
+	<!-- Header --> 
+	<h1>Demonstration of XSS Vulnerability</h1>
+	<hr style="height: 1px; background-color: red; border: none;">
+	
+	<!-- Credentials for XSS vulnerability --> 
+	<h2>Enter credentials</h2>
+		<form th:action="@{/xss}" method="post">
+	    	<input type="text" name="input" pattern="[A-Za-z0-9 ]*" 
+	    	title="Only letters, numbers, and spaces are allowed." required/>
+	    	<input type=submit name="submit"/>
+		</form>
+	<p th:text="${output}"></p>
+
+    <!-- Return Home -->
+    <br>
+    <form th:action="@{/}" method="GET">
+        <button type="submit">Return to Home</button>
+    </form>
+
+</body>
+</html>

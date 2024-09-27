@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <h1>Login</h1>
+
+    <!-- Login Form -->
+    <form th:action="@{/login}" method="post">
+        <h4 style="display: inline;">CSRF Token: </h4> 
+    	<span th:text="${csrfToken}" style="font-size: 1.2em;"></span>
+    
+        <!-- Username field -->
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+        </div>
+        <br />
+
+        <!-- Password field -->
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+        </div>
+        <br />
+
+        <!-- Submit button and CSRF token -->
+        <div>
+        	<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+            <button type="submit">Login</button>
+        </div>
+
+        <!-- Display error message if login fails -->
+        <div th:if="${param.error}">
+            <p style="color:red;">Invalid username or password</p>
+        </div>
+
+        <!-- Display logout message if user logs out -->
+        <div th:if="${param.logout}">
+            <p style="color:green;">You have been logged out successfully</p>
+        </div>
+    </form>
+
+    <!-- Link back to home -->
+    <form th:action="@{/}" method="get">
+        <button type="submit">Return to Home</button>
+    </form>
+</body>
+</html>

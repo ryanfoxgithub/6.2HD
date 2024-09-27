@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Home</title>
+</head>
+<body>
+	<h1>Welcome, choose your section:</h1>
+    <h4 style="display: inline;">CSRF Token: </h4> 
+    <span th:text="${csrfToken}" style="font-size: 1.2em;"></span>
+    <ul>
+    	<li><a th:href="@{/admin}">Admin Page</a><br>
+    	<li><a th:href="@{/user}">User Page</a><br>
+    	<li><a th:href="@{/guest}">Guest Page</a>
+    </ul>
+    
+	<form th:action="@{/checkDeleteAccount}" method="post">
+	    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+	    <div>
+	        <label for="username">Delete Account?:</label>
+	        <input type="text" id="question" name="question" required />
+	    </div>
+	    <br>
+	    <button type="submit">Submit</button>
+	</form>
+
+</body>
+</html>

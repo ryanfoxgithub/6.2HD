@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Deleted</title>
+</head>
+<body>
+    <h1>Account Deleted</h1>
+    <h4 style="display: inline;">CSRF Token: </h4> 
+    <span th:text="${csrfToken}" style="font-size: 1.2em;"></span>
+    <p th:if="${username}">The account belonging to <strong th:text="${username}">
+    </strong> has been deleted.</p>
+    <p th:unless="${username}">Your account has been deleted.</p>
+    <form th:action="@{/}" method="get">
+        <button type="submit">Return to Home</button>
+    </form>
+</body>
+</html>

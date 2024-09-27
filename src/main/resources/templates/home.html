@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title> <!-- Page Title -->
+</head>
+<body>
+	<!-- Header --> 
+    <h1>Welcome to the Vulnerable Web Application</h1>
+   	<hr style="height: 1px; background-color: red; border: none;">
+   	
+   	<!-- Hyper Links to Demonstrations --> 
+    <p>This application demonstrates several security vulnerabilities.</p>
+    <ul>
+    	<li><a th:href="@{/xss}">Cross-Site Scripting (XSS)</a><br>
+    	<li><a th:href="@{/sql}">SQL Injection</a><br>
+    	<li><a th:href="@{/login}">Login</a><br>
+    	<li><a th:href="@{/aggregate}">Data Aggregation</a><br>
+    	<li><a th:href="@{/upload}">File Upload</a><br>
+    	<li><a th:href="@{/updateProfile}">Update Profile</a><br>
+    	<li><a th:href="@{/frontend}">SSRF attack</a><br>
+    	<li><a th:href="@{/CSRF}">CSRF for Update Profile</a>
+    </ul>
+</body>
+</html>

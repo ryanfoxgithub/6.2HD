@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demonstration of File Upload Vulnerability</title>
+</head>
+<body>
+	<!-- Header --> 
+	<h1>Demonstration of File Upload Vulnerability</h1>
+	<hr style="height: 1px; background-color: red; border: none;">
+	
+	<!-- File Upload Request For Vulnerability --> 
+	<h2>Upload Your Chosen File</h2>
+    <form th:action="@{/upload}" method="POST" enctype="multipart/form-data">
+        <label for="file">Upload Your File:</label>
+        <input type="file" name="file"><br>
+        <input type="submit" value="Upload">
+    </form>
+
+    <!-- Display the uploaded file details -->
+   	<h3 style="display: inline;">Uploaded File Name: </h3> 
+    <p th:text="${fileName}"></p>
+    	
+   	<h3>File Content:</h3>
+   	<p th:text="${fileContent}"></p>
+
+    <!-- Return Home -->
+    <br>
+    <form th:action="@{/}" method="GET">
+        <button type="submit">Return to Home</button>
+    </form>
+
+</body>
+</html>
