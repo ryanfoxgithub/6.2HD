@@ -5,6 +5,7 @@ pipeline {
         stage('Build') { // Stage 1
             steps {
                 //Maven ---> https://maven.apache.org/
+                //test update for Jenkins
                 echo "Building Code..."
                 sleep 15
                 echo "Building Automation Tool Maven completed build"
