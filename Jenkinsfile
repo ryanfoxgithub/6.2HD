@@ -25,7 +25,7 @@ pipeline {
                 //echo "JUnit analysis..."
                 sleep 5 // Sleeps for 5 seconds to 'process'
                 bat 'mvn test'
-                archiveArtifacts artifacts: 'C:\Users\admin\Desktop\JenkinsTests\JenkinsFile.java', fingerprint: true
+                archiveArtifacts artifacts: 'C:/Users/admin/Desktop/JenkinsTests/JenkinsFile.java', fingerprint: true
                 //echo "Unit and integration is up to standard, JUnit finished"
             }
             // Post running of steps, do this for a successful or failure of a build
