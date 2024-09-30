@@ -8,6 +8,7 @@ pipeline {
                 //test update for Jenkins
                 echo "Building Code..."
                 sleep 15
+                sh 'mvn clean package'
                 //echo "Building Automation Tool Maven completed build"
             }
         }
@@ -18,6 +19,8 @@ pipeline {
                 //echo "Launching JUnit"
                 //echo "JUnit analysis..."
                 sleep 5 // Sleeps for 5 seconds to 'process'
+                sh 'mvn test'
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                 //echo "Unit and integration is up to standard, JUnit finished"
             }
             // Post running of steps, do this for a successful or failure of a build
