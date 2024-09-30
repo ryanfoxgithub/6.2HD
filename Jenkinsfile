@@ -25,6 +25,7 @@
                 //echo "JUnit analysis..."
                 sleep 5 // Sleeps for 5 seconds to 'process'
                 bat 'mvn test'
+                bat 'dir src\\main\\webapp'
                 archiveArtifacts artifacts: 'src/main/webapp/**/*.js', fingerprint: true
                 //echo "Unit and integration is up to standard, JUnit finished"
             }
