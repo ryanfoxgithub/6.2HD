@@ -6,6 +6,7 @@ pipeline {
             steps {
                 checkout scm
             }
+        }
         stage('Build') { // Stage 1
             steps {
                 //Maven ---> https://maven.apache.org/
