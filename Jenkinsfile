@@ -20,7 +20,7 @@ pipeline {
                 //echo "JUnit analysis..."
                 sleep 5 // Sleeps for 5 seconds to 'process'
                 sh 'mvn test'
-                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                 //echo "Unit and integration is up to standard, JUnit finished"
             }
             // Post running of steps, do this for a successful or failure of a build
