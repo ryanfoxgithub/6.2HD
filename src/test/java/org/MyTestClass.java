@@ -1,4 +1,5 @@
 import com.example.controller.HomeController;
+import com.example.model.Customer;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ public class MyTestClass {
     public void testSaveCustomer() {
         // Assuming HomeController has a saveCustomer method
         // Mocking example: creating a dummy customer to pass into the method
-        com.example.model.Customer customer = new com.example.model.Customer();
+        Customer customer = new Customer();
         customer.setName("John Doe");
 
         String result = homeController.saveCustomer(customer);
