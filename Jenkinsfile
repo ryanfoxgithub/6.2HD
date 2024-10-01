@@ -25,7 +25,7 @@
                 //echo "JUnit analysis..."
                 sleep 5 // Sleeps for 5 seconds to 'process'
                 bat 'mvn test'
-                archiveArtifacts artifacts: '**/target/*.war', allowEmptyArchive: true
+                junit "${env.BASE_PATH}target/surefire-reports/*.xml"
                 //echo "Unit and integration is up to standard, JUnit finished"
             }
             // Post running of steps, do this for a successful or failure of a build
