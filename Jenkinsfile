@@ -16,8 +16,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo "Running Tests..."
-                bat 'mvn test'
-                bat 'dir target'
+                bat 'mvn -X test'
             }
             post {
                 always {
