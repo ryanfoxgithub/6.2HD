@@ -17,6 +17,7 @@ pipeline {
             steps {
                 echo "Running Tests..."
                 bat 'mvn test'
+                bat 'dir target'
             }
             post {
                 always {
