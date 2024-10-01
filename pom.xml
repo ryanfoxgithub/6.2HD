@@ -199,11 +199,7 @@
 		    <artifactId>maven-surefire-plugin</artifactId>
 		    <version>3.5.0</version>
 		    <configuration>
-		        <properties>
-		            <configurationParameters>
-		                 <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-		            </configurationParameters>
-		        </properties>
+			 <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
 		    </configuration>
 		</plugin>
             </plugins>
