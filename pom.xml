@@ -201,7 +201,7 @@
 		    <configuration>
 		        <properties>
 		            <configurationParameters>
-		                junit.jupiter.extensions.autodetection.enabled = true
+		                 <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
 		            </configurationParameters>
 		        </properties>
 		    </configuration>
