@@ -23,6 +23,7 @@
                 echo "Test Stage.."
                 //echo "Launching JUnit"
                 //echo "JUnit analysis..."
+                cd ${env.BASE_PATH}
                 sleep 5 // Sleeps for 5 seconds to 'process'
                 bat 'mvn test'
                 
