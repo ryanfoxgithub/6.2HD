@@ -200,6 +200,14 @@
 		    <version>3.5.0</version>
 		    <configuration>
 			 <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+			 <!-- Ensure that JUnit 5 tests are correctly recognized -->
+	                <dependencies>
+	                    <dependency>
+	                        <groupId>org.junit.jupiter</groupId>
+	                        <artifactId>junit-jupiter-engine</artifactId>
+	                        <version>5.9.1</version>  <!-- Match the version with your JUnit 5 dependency -->
+	                    </dependency>
+	                </dependencies>
 		    </configuration>
 		</plugin>
             </plugins>
