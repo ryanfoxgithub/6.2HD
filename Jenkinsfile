@@ -31,11 +31,7 @@
             // Post running of steps, do this for a successful or failure of a build
             post {
                 success{
-                    // Uses email extention to send advanced emails
-                    emailext to: 'mcubed132@gmail.com', // Who's the email to?
-                        subject: "Unit and Integration Tests Complete", // What's the subject?
-                        body: "Confirming Unit and Integration Tests were successfully completed.", // What's in the body?
-                        attachLog: true, compressLog: true // Attach the log and compress it to be easier to send and receive
+                    junit '**/target/surefire-reports/*.xml'
                 }
                 failure{
                     emailext to: 'mcubed132@gmail.com',
