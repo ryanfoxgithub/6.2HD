@@ -231,13 +231,6 @@ public class HomeController {
         model.addAttribute("error", "An error occurred: " + ex.getMessage());
         return "error"; // Redirect to an error page
     }
-    
-    // Inject the EntityManagerFactory (or EntityManager if using @PersistenceContext)
-    private EntityManagerFactory entityManagerFactory;
-
-    public HomeController(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
 
     @GetMapping("/sql")
     public String sqlResult() {
