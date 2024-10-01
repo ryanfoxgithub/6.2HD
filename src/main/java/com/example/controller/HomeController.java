@@ -7,6 +7,8 @@ import com.example.model.Purchase;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,11 +37,47 @@ import org.slf4j.LoggerFactory;
 @Controller
 public class HomeController {
 
+    	private final EntityManagerFactory entityManagerFactory;
+    	private final List<Customer> customers;
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+    public HomeController(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+        this.customers = new ArrayList<>(); // In-memory list to store customers
+    }
 	
-	@RequestMapping("/")
+    @RequestMapping("/")
     public String vulnerableWebAppHome() {
         return "home"; 
+    }
+
+    @GetMapping("/")
+    public String home(Model model) {
+        model.addAttribute("customers", getCustomers());
+        return "home"; // View name that renders home page
+    }
+
+        @GetMapping("/new-customer")
+    public String newCustomerForm(Model model) {
+        model.addAttribute("customer", new Customer());
+        return "new_customer"; // View name for new customer form
+    }
+
+    @PostMapping("/save-customer")
+    public String saveCustomer(@ModelAttribute Customer customer) {
+        // Using EntityManager to persist customer in DB (mocked for tests)
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(customer);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        customers.add(customer); // Add to in-memory list (for testing)
+        return "redirect:/"; // Redirect to home page
+    }
+
+    public List<Customer> getCustomers() {
+        return customers; // Returns in-memory list of customers
     }
     
     @GetMapping("/xss")
