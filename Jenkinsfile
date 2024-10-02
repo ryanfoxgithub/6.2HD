@@ -1,17 +1,5 @@
 pipeline {
     agent any
-
-    environment {
-        EB_APP_NAME = 'vulnelastic'
-        EB_ENV_NAME = 'Vulnelastic-env'
-        AWS_ACCESS_KEY_ID = credentials('aws-access-key')
-        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
-        REGION = 'us-east-1'
-        APPLICATION_NAME = 'YourApplicationName'
-        ENVIRONMENT_NAME = 'YourEnvironmentName'
-        S3_BUCKET = 'your-s3-bucket-for-deployment'
-        VERSION_LABEL = "v${BUILD_NUMBER}"
-    }
     
     stages {
         stage('Checkout') {
