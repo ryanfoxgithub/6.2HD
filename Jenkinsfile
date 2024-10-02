@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        EB_APP_NAME = 'vulnelastic'
+        EB_ENV_NAME = 'Vulnelastic-env'
+        REGION = 'us-east-1'
+    }
+    
     stages {
         stage('Checkout') {
             steps {
@@ -43,8 +49,12 @@ pipeline {
         }
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying to AWS Elastic Beanstalk'
-                bat 'eb deploy MyAppEnvironment -r us-west-2 -l $BUILD_ID'
+                echo 'Deploying to AWS Elastic Beanstalk...'
+                script {
+                    // Assuming the artifact is a zip file, adjust as needed
+                    sh "eb use ${EB_ENV_NAME} --region ${REGION}"
+                    sh "eb deploy --staged --region ${REGION}"
+                }
             }
         }
         stage('Release') {
