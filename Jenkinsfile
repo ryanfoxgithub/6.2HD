@@ -53,7 +53,7 @@ pipeline {
                 script {
                     // Example of a Windows compatible command
                     bat "echo Deploying to AWS Elastic Beanstalk..."
-                    bat "aws elasticbeanstalk update-environment --environment-name ${EB_ENV_NAME} --version-label 'your-version-label'"
+                    bat "aws elasticbeanstalk update-environment --environment-name Vulnelastic-env --version-label 'your-version-label' --region us-east-1"
                 }
             }
         }
