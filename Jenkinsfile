@@ -51,9 +51,9 @@ pipeline {
             steps {
                 echo 'Deploying to AWS Elastic Beanstalk...'
                 script {
-                    // Assuming the artifact is a zip file, adjust as needed
-                    sh "eb use ${EB_ENV_NAME} --region ${REGION}"
-                    sh "eb deploy --staged --region ${REGION}"
+                    // Example of a Windows compatible command
+                    bat "echo Deploying to AWS Elastic Beanstalk..."
+                    bat "aws elasticbeanstalk update-environment --environment-name ${EB_ENV_NAME} --version-label 'your-version-label'"
                 }
             }
         }
