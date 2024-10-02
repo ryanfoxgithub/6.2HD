@@ -43,8 +43,8 @@ pipeline {
         }
         stage('Deploy to Staging') {
             steps {
-                echo "Deploying to Staging..."
-                // Assuming deployment commands are added here
+                echo 'Deploying to AWS Elastic Beanstalk'
+                bat 'eb deploy MyAppEnvironment -r us-west-2 -l $BUILD_ID'
             }
         }
         stage('Release') {
