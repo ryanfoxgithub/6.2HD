@@ -5,6 +5,9 @@ pipeline {
         EB_APP_NAME = 'vulnelastic'
         EB_ENV_NAME = 'Vulnelastic-env'
         REGION = 'us-east-1'
+        AWS_ACCESS_KEY_ID = credentials('AKIAVPEYWAFQSAQV5SXM')  // The ID you gave your AWS credentials
+        AWS_SECRET_ACCESS_KEY = credentials('lD8OryxRt7qZAoefMgRu7bG1dj1N03udffXcFjyr')
+        VERSION_LABEL = "${BUILD_NUMBER}"  // Using Jenkins BUILD_NUMBER as the version label
     }
     
     stages {
@@ -50,11 +53,10 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to AWS Elastic Beanstalk...'
-                script {
-                    // Example of a Windows compatible command
-                    bat "echo Deploying to AWS Elastic Beanstalk..."
-                    bat "aws elasticbeanstalk update-environment --environment-name Vulnelastic-env --version-label 'your-version-label' --region us-east-1"
-                }
+                bat """
+                    echo Deploying to AWS Elastic Beanstalk...
+                    aws elasticbeanstalk update-environment --environment-name Vulnelastic-env --version-label '${env.VERSION_LABEL}' --region us-east-1
+                """
             }
         }
         stage('Release') {
