@@ -44,7 +44,7 @@ pipeline {
         stage('packaging'){
             steps {
                 echo 'this is packaging'
-                bat 'powershell.exe -Command "Compress-Archive -Path * -DestinationPath output.zip"'
+                bat 'powershell.exe -Command "Compress-Archive -Path * -DestinationPath output.zip -Force"'
             }
         }
         stage('Deploy to Staging') {
