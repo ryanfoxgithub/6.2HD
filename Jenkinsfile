@@ -4,10 +4,13 @@ pipeline {
     environment {
         EB_APP_NAME = 'vulnelastic'
         EB_ENV_NAME = 'Vulnelastic-env'
+        AWS_ACCESS_KEY_ID = credentials('aws-access-key')
+        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
         REGION = 'us-east-1'
-        AWS_ACCESS_KEY_ID = credentials('AKIAVPEYWAFQSAQV5SXM')  // The ID you gave your AWS credentials
-        AWS_SECRET_ACCESS_KEY = credentials('lD8OryxRt7qZAoefMgRu7bG1dj1N03udffXcFjyr')
-        VERSION_LABEL = "${BUILD_NUMBER}"  // Using Jenkins BUILD_NUMBER as the version label
+        APPLICATION_NAME = 'YourApplicationName'
+        ENVIRONMENT_NAME = 'YourEnvironmentName'
+        S3_BUCKET = 'your-s3-bucket-for-deployment'
+        VERSION_LABEL = "v${BUILD_NUMBER}"
     }
     
     stages {
@@ -50,12 +53,20 @@ pipeline {
                 }
             }
         }
+        stage('packaging'){
+            steps {
+                echo 'this is packaging'
+                bat 'powershell.exe -Command "Compress-Archive -Path * -DestinationPath output.zip"'
+            }
+        }
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to AWS Elastic Beanstalk...'
                 bat """
-                    echo Deploying to AWS Elastic Beanstalk...
-                    aws elasticbeanstalk update-environment --environment-name Vulnelastic-env --version-label '${env.VERSION_LABEL}' --region us-east-1
+                aws s3 cp output.zip s3://${S3_BUCKET}/${VERSION_LABEL}.zip
+                aws elasticbeanstalk create-application-version --application-name ${APPLICATION_NAME} \\
+                    --version-label ${VERSION_LABEL} --source-bundle S3Bucket=${S3_BUCKET},S3Key=${VERSION_LABEL}.zip
+                aws elasticbeanstalk update-environment --environment-name ${ENVIRONMENT_NAME} --version-label ${VERSION_LABEL}
                 """
             }
         }
