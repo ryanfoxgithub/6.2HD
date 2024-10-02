@@ -61,13 +61,13 @@ pipeline {
         }
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying to AWS Elastic Beanstalk...'
-                bat """
-                aws s3 cp output.zip s3://${S3_BUCKET}/${VERSION_LABEL}.zip
-                aws elasticbeanstalk create-application-version --application-name ${APPLICATION_NAME} \\
-                    --version-label ${VERSION_LABEL} --source-bundle S3Bucket=${S3_BUCKET},S3Key=${VERSION_LABEL}.zip
-                aws elasticbeanstalk update-environment --environment-name ${ENVIRONMENT_NAME} --version-label ${VERSION_LABEL}
-                """
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding', 
+                    credentialsId: 'AKIAVPEYWAFQSAQV5SXM'
+                ]]) {
+                    bat "echo Deploying using AWS Access Key ID %AWS_ACCESS_KEY_ID%"
+                    // Use AWS CLI or other AWS tools here
+                }
             }
         }
         stage('Release') {
