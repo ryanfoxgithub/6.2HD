@@ -36,12 +36,8 @@ pipeline {
         }
         stage('Code Quality Analysis') {
             steps {
-                withSonarQubeEnv('Your SonarQube Server Name') {
-                    script {
-                        // Path to your sonar-project.properties file or inline configuration
-                        def sonarScannerHome = tool 'SonarQube Scanner Name';
-                        bat "${sonarScannerHome}\\bin\\sonar-scanner.bat"
-                    }
+                withSonarQubeEnv('sonarqube') {
+                    bat 'mvn sonar:sonar'
                 }
             }
         }
