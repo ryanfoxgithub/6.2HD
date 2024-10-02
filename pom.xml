@@ -211,17 +211,6 @@
 	                </dependencies>
 		    </configuration>
 		</plugin>
-		<!-- MAY NEED TO REMOVE THIS --> 
-	        <plugin>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-maven-plugin</artifactId>
-			<version>11</version>
-			<configuration>
-				<includes>
-					<include>**/src/main/java/com/example/*.java</include>
-				</includes>
-			</configuration>
-		</plugin>
             </plugins>
     <resources>
         <resource>
