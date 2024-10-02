@@ -51,7 +51,7 @@ pipeline {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding', 
-                    credentialsId: 'AKIAVPEYWAFQSAQV5SXM'
+                    credentialsId: 'aws-credentials'
                 ]]) {
                     bat "echo Deploying using AWS Access Key ID %AWS_ACCESS_KEY_ID%"
                     // Use AWS CLI or other AWS tools here
