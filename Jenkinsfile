@@ -63,15 +63,13 @@ pipeline {
                 script {
                     // Assuming you have configured AWS credentials in Jenkins credentials store
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
-                        bat """
-                        aws deploy create-deployment ^
-                        --application-name deployvuln ^
-                        --deployment-config-name CodeDeployDefault.OneAtATime ^
-                        --deployment-group-name deployvulngroup ^
-                        --description 'Deploying my application' ^
-                        --s3-location bucket=your-s3-bucket,key=builds/myapp.zip,bundleType=zip ^
-                        --region ap-southeast-2
-                        """
+                        bat "aws deploy create-deployment " +
+                            "--application-name deployvuln " +
+                            "--deployment-config-name CodeDeployDefault.OneAtATime " +
+                            "--deployment-group-name deployvulngroup " +
+                            "--description 'Deploying my application' " +
+                            "--s3-location bucket=your-s3-bucket,key=builds/myapp.zip,bundleType=zip " +
+                            "--region ap-southeast-2"
                     }
                 }
             }
