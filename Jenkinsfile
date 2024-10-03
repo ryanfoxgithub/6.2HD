@@ -67,7 +67,7 @@ pipeline {
                             "--application-name deployvuln " +
                             "--deployment-config-name CodeDeployDefault.OneAtATime " +
                             "--deployment-group-name deployvulngroup " +
-                            "--description 'Deploying my application' " +
+                            "--description 'Deploying' " +
                             "--s3-location bucket=your-s3-bucket,key=builds/myapp.zip,bundleType=zip " +
                             "--region ap-southeast-2"
                     }
