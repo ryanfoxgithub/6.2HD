@@ -92,11 +92,12 @@
 
 		<!-- Junit -->
 	    <dependency>
-		<groupId>org.junit.jupiter</groupId>
-		<artifactId>junit-jupiter-api</artifactId>
-		<version>5.9.1</version>
-		<scope>test</scope>
+	        <groupId>junit</groupId>
+	        <artifactId>junit</artifactId>
+	        <version>4.13.2</version>
+	        <scope>test</scope>
 	    </dependency>
+
 
 		    <!-- Mockito for mocking -->
 	    <dependency>
@@ -142,13 +143,7 @@
 		    <!-- Ensure you use a compatible version with Spring Boot 3.x -->
 		</dependency>
 
-		    <!-- JUnit Jupiter Engine -->
-		    <dependency>
-		      <groupId>org.junit.jupiter</groupId>
-		      <artifactId>junit-jupiter-engine</artifactId>
-		      <version>5.9.1</version>
-		      <scope>test</scope>
-		    </dependency>
+
 		
 		<dependency>
 		    <groupId>jakarta.validation</groupId>
@@ -197,19 +192,7 @@
 		<plugin>
 		    <groupId>org.apache.maven.plugins</groupId>
 		    <artifactId>maven-surefire-plugin</artifactId>
-		    <version>3.5.0</version>
-		    <configuration>
-			 <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-			 <testFailureIgnore>true</testFailureIgnore>
-			 <!-- Ensure that JUnit 5 tests are correctly recognized -->
-	                <dependencies>
-	                    <dependency>
-	                        <groupId>org.junit.jupiter</groupId>
-	                        <artifactId>junit-jupiter-engine</artifactId>
-	                        <version>5.9.1</version>  <!-- Match the version with your JUnit 5 dependency -->
-	                    </dependency>
-	                </dependencies>
-		    </configuration>
+		    <version>2.22.2</version>
 		</plugin>
             </plugins>
     <resources>
