@@ -16,11 +16,11 @@ pipeline {
         stage('Test') {
             steps {
                 echo "Running Tests..."
-                bat 'mvn -X test'
+                bat 'mvn test'
             }
             post {
                 always {
-                    junit allowEmptyResults: true, testResults: '**/test-results/*.xml'
+                    junit 'target/surefire-reports/*.xml'
                 }
                 success {
                     echo "Tests Passed."
