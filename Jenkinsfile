@@ -16,7 +16,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo "Running Tests..."
-                bat 'mvn test'
+                bat 'mvn clean test'
                 junit 'target\\surefire-reports\\*.xml'
             }
             post {
