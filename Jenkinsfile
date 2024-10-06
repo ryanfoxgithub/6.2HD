@@ -39,27 +39,39 @@ pipeline {
                 }
             }
         }
-        stage('packaging'){
-            steps {
-                echo 'this is packaging'
-                bat 'powershell.exe -Command "Compress-Archive -Path * -DestinationPath output.zip -Force"'
-            }
-        }
+        //stage('packaging'){
+        //    steps {
+        //        echo 'this is packaging'
+        //        bat 'powershell.exe -Command "Compress-Archive -Path * -DestinationPath output.zip -Force"'
+        //    }
+        //}
         stage('Deploy to Elastic Beanstalk') {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding', 
                     credentialsId: 'aws-credentials'
                 ]]) {
-                    bat "aws elasticbeanstalk create-application-version " +
-                            "--application-name WebServer " +
-                            "--version-label v%BUILD_NUMBER% " +
-                            "--source-bundle S3Bucket=elasticbeanstalk-ap-southeast-2-376129847649,S3Key=VulnerableWebApp-%BUILD_NUMBER%.jar " +
-                            "--region ap-southeast-2"
-        
-                    bat "aws elasticbeanstalk update-environment " +
-                            "--environment-name WebServer-env" +
-                            "--version-label v%BUILD_NUMBER%"
+                bat '''
+                SET AWS_ACCESS_KEY_ID=%AWS_ACCESS_KEY_ID%
+                SET AWS_SECRET_ACCESS_KEY=%AWS_SECRET_ACCESS_KEY%
+                SET AWS_DEFAULT_REGION=ap-southeast-2
+
+                REM Upload JAR to S3
+                aws s3 cp target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar s3://elasticbeanstalk-ap-southeast-2-376129847649/VulnerableWebApp-%BUILD_NUMBER%.jar
+
+                REM Create a new application version
+                aws elasticbeanstalk create-application-version ^
+                    --application-name WebServer ^
+                    --version-label v%BUILD_NUMBER% ^
+                    --source-bundle S3Bucket=elasticbeanstalk-ap-southeast-2-376129847649,S3Key=VulnerableWebApp-%BUILD_NUMBER%.jar ^
+                    --region ap-southeast-2
+
+                REM Update the environment to use the new version
+                aws elasticbeanstalk update-environment ^
+                    --environment-name WebServer-env ^
+                    --version-label v%BUILD_NUMBER% ^
+                    --region ap-southeast-2
+                '''
                 }
             }
         }
