@@ -1,10 +1,12 @@
 pipeline {
     agent any
     
-environment {
-    AZURE_APP_NAME = 'VulnTest'             // Replace with your App Service name
-    AZURE_RESOURCE_GROUP = 'WebStuff'       // Replace with your Resource Group name
-}
+    environment {
+        AZURE_APP_NAME = 'VulnTest'            // Replace with your App Service name
+        AZURE_RESOURCE_GROUP = 'WebStuff'      // Replace with your Resource Group name
+        AZURE_SUBSCRIPTION_ID = '3ccc9a1e-ed72-4663-ad20-8295ba375c6f' // Optionally, store as a separate credential
+        AZURE_TENANT_ID = 'd02378ec-1688-46d5-8540-1c28b5f470f6'             // Optionally, store as a separate credential
+    }
     
     stages {
         stage('Checkout') {
@@ -52,19 +54,16 @@ environment {
         //}
         stage('Deploy to Azure App Service') {
             steps {
-                // Bind each credential separately with descriptive IDs
+                // Bind Azure Service Principal credentials
                 withCredentials([
-                    string(credentialsId: 'azure-client-id', variable: 'AZURE_CLIENT_ID'),
-                    string(credentialsId: 'azure-client-secret', variable: 'AZURE_CLIENT_SECRET'),
-                    string(credentialsId: 'azure-tenant-id', variable: 'AZURE_TENANT_ID'),
-                    string(credentialsId: 'azure-subscription-id', variable: 'AZURE_SUBSCRIPTION_ID')
+                    usernamePassword(credentialsId: 'AzureServicePrincipal', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')
                 ]) {
                     bat '''
                         echo Logging in to Azure...
                         az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%
                         
-                        echo Deploying JAR to Azure App Service...
-                        az webapp deploy --resource-group %AZURE_RESOURCE_GROUP% --name %AZURE_APP_NAME% --src-path target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar --type jar
+                        echo Deploying WAR to Azure App Service...
+                        az webapp deploy --resource-group %AZURE_RESOURCE_GROUP% --name %AZURE_APP_NAME% --src-path target\\VulnerableWebApp-0.0.1-SNAPSHOT.war --type war
                         
                         echo Deployment completed.
                     '''
