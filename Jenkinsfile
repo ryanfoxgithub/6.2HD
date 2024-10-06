@@ -73,7 +73,7 @@ pipeline {
                             "--deployment-config-name CodeDeployDefault.OneAtATime " +
                             "--deployment-group-name deployvulngroup " +
                             "--description 'Deploying' " +
-                            "--s3-location bucket=your-s3-bucket,key=builds/myapp.zip,bundleType=zip " +
+                            "--s3-location bucket=elasticbeanstalk-ap-southeast-2-376129847649,key=builds/myapp.zip,bundleType=zip " +
                             "--region ap-southeast-2"
                     }
                 }
