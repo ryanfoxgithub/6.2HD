@@ -54,7 +54,8 @@ pipeline {
                     bat "aws elasticbeanstalk create-application-version " +
                             "--application-name WebServer " +
                             "--version-label v%BUILD_NUMBER% " +
-                            "--source-bundle S3Bucket=elasticbeanstalk-ap-southeast-2-376129847649,S3Key=VulnerableWebApp-%BUILD_NUMBER%.jar"
+                            "--source-bundle S3Bucket=elasticbeanstalk-ap-southeast-2-376129847649,S3Key=VulnerableWebApp-%BUILD_NUMBER%.jar " +
+                            "--region ap-southeast-2"
         
                     bat "aws elasticbeanstalk update-environment " +
                             "--environment-name WebServer-env" +
