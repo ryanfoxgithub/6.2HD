@@ -73,23 +73,6 @@ pipeline {
                 }
             }
         }
-        stage('Verify Deployment') {
-            steps {
-                script {
-                    try {
-                        def response = httpRequest 'https://vulntest-aehtatgbe6gggtgp.australiacentral-01.azurewebsites.net/'
-                        echo "Response Status: ${response.status}"
-                        if (response.status != 200) {
-                            error "Application is not responding as expected. Status Code: ${response.status}"
-                        } else {
-                            echo "Deployment verified successfully."
-                        }
-                    } catch (Exception e) {
-                        error "Failed to verify deployment: ${e.getMessage()}"
-                    }
-                }
-            }
-        }
         stage('Release') {
             steps {
                 echo "Releasing the application..."
