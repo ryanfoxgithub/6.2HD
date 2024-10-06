@@ -1,6 +1,13 @@
 pipeline {
     agent any
     
+    environment {
+        AZURE_CREDENTIALS = credentials('azure-service-principal') // ID from Jenkins credentials
+        AZURE_APP_NAME = 'VulnerableWebApp' // Replace with your App Service name
+        AZURE_RESOURCE_GROUP = 'YourResourceGroupName' // Replace with your Resource Group name
+        AZURE_REGION = 'ap-southeast-2' // Replace with your region
+    }
+    
     stages {
         stage('Checkout') {
             steps {
@@ -45,49 +52,21 @@ pipeline {
         //        bat 'powershell.exe -Command "Compress-Archive -Path * -DestinationPath output.zip -Force"'
         //    }
         //}
-        stage('Deploy to Elastic Beanstalk') {
+        stage('Deploy to Azure App Service') {
             steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding', 
-                    credentialsId: 'aws-credentials'
-                ]]) {
-                bat '''
-                SET AWS_ACCESS_KEY_ID=%AWS_ACCESS_KEY_ID%
-                SET AWS_SECRET_ACCESS_KEY=%AWS_SECRET_ACCESS_KEY%
-                SET AWS_DEFAULT_REGION=ap-southeast-2
+                withCredentials([string(credentialsId: 'azure-service-principal', variable: 'AZURE_SP_JSON')]) {
+                    // Write the Service Principal JSON to a file
+                    writeFile file: 'azure-sp.json', text: AZURE_SP_JSON
 
-                REM Upload JAR to S3
-                aws s3 cp target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar s3://elasticbeanstalk-ap-southeast-2-376129847649/VulnerableWebApp-%BUILD_NUMBER%.jar --acl bucket-owner-full-control
+                    // Log in to Azure using Service Principal
+                    bat """
+                        az login --service-principal -u $(jq -r '.clientId' azure-sp.json) -p $(jq -r '.clientSecret' azure-sp.json) --tenant $(jq -r '.tenantId' azure-sp.json)
+                    """
 
-                REM Create a new application version
-                aws elasticbeanstalk create-application-version ^
-                    --application-name WebServer ^
-                    --version-label v%BUILD_NUMBER% ^
-                    --source-bundle S3Bucket=elasticbeanstalk-ap-southeast-2-376129847649,S3Key=VulnerableWebApp-%BUILD_NUMBER%.jar ^
-                    --region ap-southeast-2
-
-                REM Update the environment to use the new version
-                aws elasticbeanstalk update-environment ^
-                    --environment-name WebServer-env ^
-                    --version-label v%BUILD_NUMBER% ^
-                    --region ap-southeast-2
-                '''
-                }
-            }
-        }
-        stage('Deploy to AWS CodeDeploy') {
-            steps {
-                script {
-                    // Assuming you have configured AWS credentials in Jenkins credentials store
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
-                        bat "aws deploy create-deployment " +
-                            "--application-name deployvuln " +
-                            "--deployment-config-name CodeDeployDefault.OneAtATime " +
-                            "--deployment-group-name deployvulngroup " +
-                            "--description 'Deploying' " +
-                            "--s3-location bucket=elasticbeanstalk-ap-southeast-2-376129847649,key=builds/myapp.zip,bundleType=zip " +
-                            "--region ap-southeast-2"
-                    }
+                    // Deploy the JAR to Azure App Service
+                    bat """
+                        az webapp deploy --resource-group $AZURE_RESOURCE_GROUP --name $AZURE_APP_NAME --src-path target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar --type jar
+                    """
                 }
             }
         }
