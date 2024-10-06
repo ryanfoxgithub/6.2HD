@@ -59,16 +59,19 @@ pipeline {
         //}
         stage('Deploy to Azure App Service') {
             steps {
-                bat '''
-                    REM Log in to Azure using Service Principal
-                    az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%
+                // Bind each credential separately
+                withCredentials([
+                    string(credentialsId: 'azure-client-id', variable: 'AZURE_CLIENT_ID'),
+                    string(credentialsId: 'azure-client-secret', variable: 'AZURE_CLIENT_SECRET'),
+                    string(credentialsId: 'azure-tenant-id', variable: 'AZURE_TENANT_ID')
+                ]) {
+                    bat '''
+                        REM Log in to Azure using Service Principal
+                        az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%
 
-                    REM Set the subscription
-                    az account set --subscription %AZURE_SUBSCRIPTION_ID%
-
-                    REM Deploy the JAR to Azure App Service
-                    az webapp deploy --resource-group %AZURE_RESOURCE_GROUP% --name %AZURE_APP_NAME% --src-path target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar --type jar
-                '''
+                        REM Deploy the JAR to Azure App Service
+                        az webapp deploy --resource-group %AZURE_RESOURCE_GROUP% --name %AZURE_APP_NAME% --src-path target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar --type jar
+                    '''
             }
         }
         stage('Release') {
