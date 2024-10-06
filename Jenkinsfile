@@ -59,7 +59,6 @@ pipeline {
                     bat "aws elasticbeanstalk update-environment " +
                             "--environment-name WebServer-env" +
                             "--version-label v%BUILD_NUMBER%"
-                    "
                 }
             }
         }
