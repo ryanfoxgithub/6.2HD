@@ -72,6 +72,7 @@ pipeline {
                         REM Deploy the JAR to Azure App Service
                         az webapp deploy --resource-group %AZURE_RESOURCE_GROUP% --name %AZURE_APP_NAME% --src-path target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar --type jar
                     '''
+                }
             }
         }
         stage('Release') {
