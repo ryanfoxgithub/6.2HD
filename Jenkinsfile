@@ -58,15 +58,18 @@ pipeline {
                 withCredentials([
                     usernamePassword(credentialsId: 'AzureServicePrincipal', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')
                 ]) {
-                    bat '''
-                        echo Logging in to Azure...
-                        az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%
-                        
-                        echo Deploying WAR to Azure App Service...
-                        az webapp deploy --resource-group %AZURE_RESOURCE_GROUP% --name %AZURE_APP_NAME% --src-path target\\VulnerableWebApp-0.0.1-SNAPSHOT.war --type war
-                        
-                        echo Deployment completed.
-                    '''
+                bat '''
+                    echo Logging in to Azure...
+                    az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%
+                    
+                    echo Setting Azure subscription...
+                    az account set --subscription %AZURE_SUBSCRIPTION_ID%
+                    
+                    echo Deploying WAR to Azure App Service...
+                    az webapp deploy --resource-group %AZURE_RESOURCE_GROUP% --name %AZURE_APP_NAME% --src-path target\\VulnerableWebApp-0.0.1-SNAPSHOT.war --type war
+                    
+                    echo Deployment completed.
+                '''
                 }
             }
         }
