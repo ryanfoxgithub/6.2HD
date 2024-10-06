@@ -57,7 +57,7 @@ pipeline {
                 SET AWS_DEFAULT_REGION=ap-southeast-2
 
                 REM Upload JAR to S3
-                aws s3 cp target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar s3://elasticbeanstalk-ap-southeast-2-376129847649/VulnerableWebApp-%BUILD_NUMBER%.jar
+                aws s3 cp target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar s3://elasticbeanstalk-ap-southeast-2-376129847649/VulnerableWebApp-%BUILD_NUMBER%.jar --acl bucket-owner-full-control
 
                 REM Create a new application version
                 aws elasticbeanstalk create-application-version ^
