@@ -11,7 +11,6 @@ pipeline {
             steps {
                 echo "Building Code..."
                 bat 'mvn clean package'
-                bat 'java -jar target/VulnerableWebApp-0.0.1-SNAPSHOT.jar'
             }
         }
         stage('Test') {
@@ -46,14 +45,21 @@ pipeline {
                 bat 'powershell.exe -Command "Compress-Archive -Path * -DestinationPath output.zip -Force"'
             }
         }
-        stage('Deploy to Staging') {
+        stage('Deploy to Elastic Beanstalk') {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding', 
                     credentialsId: 'aws-credentials'
                 ]]) {
-                    bat "echo Deploying using AWS Access Key ID %AWS_ACCESS_KEY_ID%"
-                    // Use AWS CLI or other AWS tools here
+                    bat "aws elasticbeanstalk create-application-version " +
+                            "--application-name WebServer " +
+                            "--version-label v%BUILD_NUMBER% " +
+                            "--source-bundle S3Bucket=elasticbeanstalk-ap-southeast-2-376129847649,S3Key=VulnerableWebApp-%BUILD_NUMBER%.jar"
+        
+                    bat "aws elasticbeanstalk update-environment " +
+                            "--environment-name WebServer-env" +
+                            "--version-label v%BUILD_NUMBER%"
+                    "
                 }
             }
         }
