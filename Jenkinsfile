@@ -3,15 +3,14 @@ pipeline {
     
     environment {
         // Azure Service Principal Credentials
-        AZURE_CLIENT_ID = credentials('azure-client-id')             // ID for client ID
-        AZURE_CLIENT_SECRET = credentials('azure-client-secret')     // ID for client secret
-        AZURE_TENANT_ID = credentials('azure-tenant-id')             // ID for tenant ID
-        AZURE_SUBSCRIPTION_ID = credentials('azure-subscription-id') // ID for subscription ID
+        AZURE_CLIENT_ID = credentials('c48bc080-b763-4851-ad13-e2c11f1e1bb8')             // ID for client ID
+        AZURE_CLIENT_SECRET = credentials('Wkw8Q~COYQp4rZlzH.AX7W-4DBJ6yaf1lKeezaEE')     // ID for client secret
+        AZURE_TENANT_ID = credentials('d02378ec-1688-46d5-8540-1c28b5f470f6')             // ID for tenant ID
+        AZURE_SUBSCRIPTION_ID = credentials('3ccc9a1e-ed72-4663-ad20-8295ba375c6f') // ID for subscription ID
 
         // Azure App Service Details
-        AZURE_APP_NAME = 'YourAppServiceName'            // Replace with your App Service name
-        AZURE_RESOURCE_GROUP = 'YourResourceGroupName'   // Replace with your Resource Group name
-        AZURE_REGION = 'ap-southeast-2'                  // Replace with your desired region
+        AZURE_APP_NAME = 'VulnTest'            // Replace with your App Service name
+        AZURE_RESOURCE_GROUP = 'WebStuff'   // Replace with your Resource Group name
     }
     
     stages {
