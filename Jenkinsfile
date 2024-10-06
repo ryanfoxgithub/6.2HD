@@ -46,12 +46,6 @@ pipeline {
                 }
             }
         }
-        //stage('packaging'){
-        //    steps {
-        //        echo 'this is packaging'
-        //        bat 'powershell.exe -Command "Compress-Archive -Path * -DestinationPath output.zip -Force"'
-        //    }
-        //}
         stage('Deploy to Azure App Service') {
             steps {
                 // Bind Azure Service Principal credentials
