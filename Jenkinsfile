@@ -54,20 +54,19 @@ pipeline {
         //}
         stage('Deploy to Azure App Service') {
             steps {
-                withCredentials([string(credentialsId: 'azure-service-principal', variable: 'AZURE_SP_JSON')]) {
-                    // Write the Service Principal JSON to a file
-                    writeFile file: 'azure-sp.json', text: AZURE_SP_JSON
+        stage('Deploy to Azure App Service') {
+            steps {
+                withCredentials([string(credentialsId: 'azure-service-principal', variable: 'AZURE_CREDENTIALS')]) {
+                    bat '''
+                        REM Log in to Azure using Service Principal
+                        az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%
 
-                    // Log in to Azure using Service Principal
-                    bat """
-                        az login --service-principal -u $(jq -r '.clientId' azure-sp.json) -p $(jq -r '.clientSecret' azure-sp.json) --tenant $(jq -r '.tenantId' azure-sp.json)
-                    """
-
-                    // Deploy the JAR to Azure App Service
-                    bat """
-                        az webapp deploy --resource-group $AZURE_RESOURCE_GROUP --name $AZURE_APP_NAME --src-path target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar --type jar
-                    """
+                        REM Deploy the JAR to Azure App Service
+                        az webapp deploy --resource-group %AZURE_RESOURCE_GROUP% --name %AZURE_APP_NAME% --src-path target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar --type jar
+                    '''
                 }
+            }
+        }
             }
         }
         stage('Release') {
