@@ -54,8 +54,6 @@ pipeline {
         //}
         stage('Deploy to Azure App Service') {
             steps {
-        stage('Deploy to Azure App Service') {
-            steps {
                 withCredentials([string(credentialsId: 'azure-service-principal', variable: 'AZURE_CREDENTIALS')]) {
                     bat '''
                         REM Log in to Azure using Service Principal
