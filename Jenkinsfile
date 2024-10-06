@@ -11,6 +11,7 @@ pipeline {
             steps {
                 echo "Building Code..."
                 bat 'mvn clean package'
+                bat 'java -jar target/VulnerableWebApp-0.0.1-SNAPSHOT.jar'
             }
         }
         stage('Test') {
