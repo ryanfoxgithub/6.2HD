@@ -2,10 +2,16 @@ pipeline {
     agent any
     
     environment {
-        AZURE_CREDENTIALS = credentials('azure-service-principal') // ID from Jenkins credentials
-        AZURE_APP_NAME = 'VulnerableWebApp' // Replace with your App Service name
-        AZURE_RESOURCE_GROUP = 'YourResourceGroupName' // Replace with your Resource Group name
-        AZURE_REGION = 'ap-southeast-2' // Replace with your region
+        // Azure Service Principal Credentials
+        AZURE_CLIENT_ID = credentials('azure-client-id')             // ID for client ID
+        AZURE_CLIENT_SECRET = credentials('azure-client-secret')     // ID for client secret
+        AZURE_TENANT_ID = credentials('azure-tenant-id')             // ID for tenant ID
+        AZURE_SUBSCRIPTION_ID = credentials('azure-subscription-id') // ID for subscription ID
+
+        // Azure App Service Details
+        AZURE_APP_NAME = 'YourAppServiceName'            // Replace with your App Service name
+        AZURE_RESOURCE_GROUP = 'YourResourceGroupName'   // Replace with your Resource Group name
+        AZURE_REGION = 'ap-southeast-2'                  // Replace with your desired region
     }
     
     stages {
@@ -54,15 +60,16 @@ pipeline {
         //}
         stage('Deploy to Azure App Service') {
             steps {
-                withCredentials([string(credentialsId: 'azure-service-principal', variable: 'AZURE_CREDENTIALS')]) {
-                    bat '''
-                        REM Log in to Azure using Service Principal
-                        az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%
+                bat '''
+                    REM Log in to Azure using Service Principal
+                    az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%
 
-                        REM Deploy the JAR to Azure App Service
-                        az webapp deploy --resource-group %AZURE_RESOURCE_GROUP% --name %AZURE_APP_NAME% --src-path target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar --type jar
-                    '''
-                }
+                    REM Set the subscription
+                    az account set --subscription %AZURE_SUBSCRIPTION_ID%
+
+                    REM Deploy the JAR to Azure App Service
+                    az webapp deploy --resource-group %AZURE_RESOURCE_GROUP% --name %AZURE_APP_NAME% --src-path target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar --type jar
+                '''
             }
         }
         stage('Release') {
