@@ -73,6 +73,18 @@ pipeline {
                 }
             }
         }
+        stage('Verify Deployment') {
+            steps {
+                script {
+                    def response = httpRequest 'https://vulntest-aehtatgbe6gggtgp.australiacentral-01.azurewebsites.net/'
+                    if (response.status != 200) {
+                        error "Application is not responding as expected."
+                    } else {
+                        echo "Deployment verified successfully."
+                    }
+                }
+            }
+        }
         stage('Release') {
             steps {
                 echo "Releasing the application..."
