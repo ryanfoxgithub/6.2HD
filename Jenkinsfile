@@ -60,11 +60,13 @@ environment {
                     string(credentialsId: 'azure-subscription-id', variable: 'AZURE_SUBSCRIPTION_ID')
                 ]) {
                     bat '''
-                        REM Log in to Azure using Service Principal
+                        echo Logging in to Azure...
                         az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%
-        
-                        REM Deploy the JAR to Azure App Service
+                        
+                        echo Deploying JAR to Azure App Service...
                         az webapp deploy --resource-group %AZURE_RESOURCE_GROUP% --name %AZURE_APP_NAME% --src-path target\\VulnerableWebApp-0.0.1-SNAPSHOT.jar --type jar
+                        
+                        echo Deployment completed.
                     '''
                 }
             }
